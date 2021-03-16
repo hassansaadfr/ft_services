@@ -9,7 +9,9 @@ do
 	echo "mysql is not up"
 done
 
-echo "CREATE USER 'wp'@'localhost' IDENTIFIED BY 'wp';" | mysql -u root --skip-password
+echo "CREATE USER 'wp'@'%' IDENTIFIED BY 'wp';" | mysql -u root --skip-password
 echo "CREATE DATABASE wordpress CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root --skip-password
-echo "GRANT ALL on wordpress.* TO 'wp'@'localhost' IDENTIFIED BY 'wp';" | mysql -u root --skip-password
+echo "GRANT ALL on wordpress.* TO 'wp'@'%' IDENTIFIED BY 'wp';" | mysql -u root --skip-password
 echo "flush privileges;" | mysql -u root --skip-password
+
+tail -F /dev/null

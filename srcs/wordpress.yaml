@@ -4,7 +4,7 @@ metadata:
   name: wordpress
 spec:
   selector:
-    app: myapp
+    app: wordpress
   ports:
   - port: 5050
     targetPort: 5050
@@ -24,10 +24,7 @@ spec:
     spec:
       containers:
       - name: wordpress
-        image: wordpress42
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: fortytwo/wordpress
+        imagePullPolicy: Never
         ports:
         - containerPort: 5050
