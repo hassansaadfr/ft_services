@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: wordpress
-        image: wp
+        image: wordpress42
         resources:
           limits:
             memory: "128Mi"
