@@ -1,5 +1,7 @@
 FROM alpine
 
+EXPOSE 5050
+
 RUN apk update
 
 RUN apk add curl php composer
@@ -10,8 +12,6 @@ RUN chmod +x wp-cli.phar
 
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-RUN mkdir -p /var/www/html/wordpress
+RUN wp core download --locale=fr_FR
 
-RUN wp core download --locale=fr_FR --path="/var/www/html/wordpress"
-
-CMD "sh"
+# CMD [ "php -S localhost:5050" ]

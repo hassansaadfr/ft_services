@@ -25,10 +25,9 @@ spec:
       containers:
       - name: mysql
         image: mysql
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        env:
+          - name: MYSQL_ALLOW_EMPTY_PASSWORD
+            value: "true"
         ports:
         - containerPort: 3306
 

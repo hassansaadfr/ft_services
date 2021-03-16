@@ -13,5 +13,3 @@ echo "CREATE USER 'wp'@'localhost' IDENTIFIED BY 'wp';" | mysql -u root --skip-p
 echo "CREATE DATABASE wordpress CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root --skip-password
 echo "GRANT ALL on wordpress.* TO 'wp'@'localhost' IDENTIFIED BY 'wp';" | mysql -u root --skip-password
 echo "flush privileges;" | mysql -u root --skip-password
-
-sh
