@@ -3,7 +3,14 @@ server {
 	listen 80;
 	listen [::]:80;
 	server_name localhost;
-	return 301 https://$host$request_uri;
+	location /wordpress {
+		return 307 http://wordpress:5050$request_uri;
+	}
+
+	location /phpmyadmin {
+        include proxy_params;
+        proxy_pass http://phpmyadmin:5000;
+	}
 }
 
 server{
@@ -20,11 +27,11 @@ server{
 	index index.html index.htm index.nginx-debian.html index.php;
 
 	location /wordpress {
-		return 307 https://wordpress$request_uri;
+		return 307 http://wordpress:5050$request_uri;
 	}
 
 	location /phpmyadmin {
         include proxy_params;
-        proxy_pass https://phpmyadmin;
+        proxy_pass http://phpmyadmin:5000;
 	}
 }
