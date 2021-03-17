@@ -10,9 +10,9 @@ RUN apk add curl php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-c
 
 RUN apk add wget openrc nginx
 
-RUN cd /tmp && wget https://files.phpmyadmin.net/phpMyAdmin/${VER}/phpMyAdmin-${VER}-all-languages.tar.gz && tar xvf phpMyAdmin-${VER}-all-languages.tar.gz && rm phpMyAdmin*.gz
+RUN apk add phpmyadmin
 
-COPY ./srcs/config.inc.php /etc/phpmyadmin/config.inc.php
+COPY ./srcs/config.inc.php /usr/share/webapps/phpmyadmin/config.inc.php
 
 COPY srcs/default /etc/nginx/conf.d/default.conf
 

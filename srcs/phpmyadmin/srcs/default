@@ -1,4 +1,4 @@
-upstream wp {
+upstream pma {
     server 127.0.0.1:5001;
 }
 
@@ -8,6 +8,6 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://wp;
+        proxy_pass http://pma;
     }
 }

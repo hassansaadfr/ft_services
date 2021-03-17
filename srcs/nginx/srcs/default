@@ -13,19 +13,18 @@ server{
 
 	server_name localhost;
 
-	ssl_certificate /etc/nginx/ssl/localhost.pem;
-	ssl_certificate_key /etc/nginx/ssl/localhost.key;
+	ssl_certificate /etc/ssl/localhost.pem;
+	ssl_certificate_key /etc/ssl/localhost.key;
 
 	root /var/www/html/localhost;
 	index index.html index.htm index.nginx-debian.html index.php;
 
-	location / {
-		autoindex on;
-		try_files $uri $uri/ =404;
+	location /wordpress {
+		return 307 https://wordpress$request_uri;
 	}
 
-	location ~ \.php$ {
-		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+	location /phpmyadmin {
+        include proxy_params;
+        proxy_pass https://phpmyadmin;
 	}
 }
