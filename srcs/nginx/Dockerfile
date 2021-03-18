@@ -20,4 +20,8 @@ RUN openrc
 
 RUN touch /run/openrc/softlevel
 
+COPY srcs/proxy_params /etc/nginx/proxy_params
+
+COPY srcs/default /etc/nginx/conf.d/default.conf
+
 CMD ./init.sh

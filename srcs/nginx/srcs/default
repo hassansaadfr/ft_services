@@ -1,19 +1,11 @@
-
 server {
 	listen 80;
 	listen [::]:80;
 	server_name localhost;
-	location /wordpress {
-		return 307 http://wordpress:5050$request_uri;
-	}
-
-	location /phpmyadmin {
-        include proxy_params;
-        proxy_pass http://phpmyadmin:5000;
-	}
+	return 301 https://$host$request_uri;
 }
 
-server{
+server {
 
 	listen 443 ssl ;
 	listen [::]:443 ssl ;
@@ -23,15 +15,12 @@ server{
 	ssl_certificate /etc/ssl/localhost.pem;
 	ssl_certificate_key /etc/ssl/localhost.key;
 
-	root /var/www/html/localhost;
-	index index.html index.htm index.nginx-debian.html index.php;
-
 	location /wordpress {
-		return 307 http://wordpress:5050$request_uri;
+		return 307 http://$host:5050;
 	}
 
-	location /phpmyadmin {
-        include proxy_params;
-        proxy_pass http://phpmyadmin:5000;
+	location /phpmyadmin/ {
+		include			proxy_params;
+		proxy_pass		http://phpmyadmin:5000/;
 	}
 }

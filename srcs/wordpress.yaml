@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wordpress
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   selector:
     app: wordpress
@@ -27,5 +29,40 @@ spec:
       - name: wordpress
         image: fortytwo/wordpress
         imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        env:
+          - name: ADMIN_WP_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: admin_wp_user
+          - name: ADMIN_WP_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: admin_wp_pass
+          - name: USER1_WP_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: user1_wp_user
+          - name: USER1_WP_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: user1_wp_pass
+          - name: USER2_WP_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: user2_wp_user
+          - name: USER2_WP_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mysqlsecret
+                key: user2_wp_pass
         ports:
         - containerPort: 5050

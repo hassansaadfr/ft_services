@@ -2,6 +2,8 @@ FROM alpine
 
 ENV VER="4.9.0.1"
 
+ENV PMA_IP=localhost
+
 EXPOSE 5000
 
 RUN apk update
@@ -19,8 +21,6 @@ COPY srcs/default /etc/nginx/conf.d/default.conf
 RUN openrc
 
 RUN touch /run/openrc/softlevel
-
-COPY srcs/proxy_params /etc/nginx/proxy_params
 
 EXPOSE 5050
 

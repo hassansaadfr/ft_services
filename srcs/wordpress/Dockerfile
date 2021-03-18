@@ -12,7 +12,9 @@ RUN chmod +x wp-cli.phar
 
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-RUN cd /tmp && mkdir wordpress && cd wordpress && wp core download --locale=fr_FR
+RUN apk add wget
+
+RUN cd /tmp && mkdir wordpress && cd wordpress && wget https://wordpress.org/latest.tar.gz && tar xfz latest.tar.gz && mv wordpress/* ./ && rm -rf *.gz
 
 COPY srcs/wp-config.php /tmp/wordpress
 
@@ -25,8 +27,6 @@ COPY srcs/default /etc/nginx/conf.d/default.conf
 RUN openrc
 
 RUN touch /run/openrc/softlevel
-
-COPY srcs/proxy_params /etc/nginx/proxy_params
 
 COPY srcs/init.sh .
 

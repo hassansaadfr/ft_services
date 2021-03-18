@@ -1,6 +1,6 @@
 #!/bin/sh
 
-php -S 0.0.0.0:5051 -t /tmp/wordpress &
+php-fpm7
 
 service nginx start
 

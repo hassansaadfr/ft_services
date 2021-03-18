@@ -11,4 +11,5 @@
 	$cfg['Servers'][$i]['host'] = 'mysql';
 	$cfg['Servers'][$i]['compress'] = FALSE;
 	$cfg['Servers'][$i]['AllowNoPassword'] = TRUE;
+	$cfg['PmaAbsoluteUri'] = 'https://minikubeip/phpmyadmin';
 ?>

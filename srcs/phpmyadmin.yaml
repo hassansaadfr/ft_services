@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: phpmyadmin
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   selector:
     app: phpmyadmin
@@ -27,5 +29,12 @@ spec:
       - name: phpmyadmin
         image: fortytwo/phpmyadmin
         imagePullPolicy: Never
+        env:
+          - name: PMA_IP
+            value: IP_ADDR
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
         ports:
-        - containerPort: 5000
+          - containerPort: 5000

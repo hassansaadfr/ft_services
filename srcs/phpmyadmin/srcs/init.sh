@@ -1,6 +1,8 @@
 #!/bin/sh
 
-php -S 0.0.0.0:5001 -t /usr/share/webapps/phpmyadmin &
+sed -i -e 's/minikubeip/'$PMA_IP'/g' /usr/share/webapps/phpmyadmin/config.inc.php
+
+php-fpm7
 
 service nginx start
 
