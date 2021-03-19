@@ -25,14 +25,17 @@ spec:
       labels:
         app: wordpress
     spec:
+      volumes:
+        - name: wordpress-persistent-storage
+          persistentVolumeClaim:
+            claimName: wp-pv-claim
       containers:
       - name: wordpress
         image: fortytwo/wordpress
         imagePullPolicy: Never
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
+        volumeMounts:
+          - name: wordpress-persistent-storage
+            mountPath: /tmp
         env:
           - name: ADMIN_WP_USER
             valueFrom:
@@ -65,4 +68,4 @@ spec:
                 name: mysqlsecret
                 key: user2_wp_pass
         ports:
-        - containerPort: 5050
+          - containerPort: 5050

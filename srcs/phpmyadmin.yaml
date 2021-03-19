@@ -32,9 +32,5 @@ spec:
         env:
           - name: PMA_IP
             value: IP_ADDR
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
         ports:
           - containerPort: 5000

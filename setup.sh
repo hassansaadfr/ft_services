@@ -17,6 +17,7 @@ docker build srcs/nginx -t fortytwo/nginx
 
 kubectl delete -f srcs
 
+kubectl create -f srcs/volumes.yaml
 kubectl create -f srcs/secrets.yaml
 sed -e 's/minikubeip/'$minikubeip'/g' srcs/metallb/metallb.yaml | kubectl create -f -
 kubectl create -f srcs/mysql.yaml

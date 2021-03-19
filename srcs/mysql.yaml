@@ -67,11 +67,13 @@ spec:
               secretKeyRef:
                 name: mysqlsecret
                 key: user2_wp_pass
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "1000m"
         ports:
           - containerPort: 3306
             name: mysql
-
+        volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim

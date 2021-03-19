@@ -35,7 +35,3 @@ spec:
       - name: nginx
         image: fortytwo/nginx
         imagePullPolicy: Never
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "1000m"
