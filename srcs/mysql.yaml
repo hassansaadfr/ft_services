@@ -32,16 +32,11 @@ spec:
         image: fortytwo/mysql
         imagePullPolicy: Never
         env:
-          - name: ROOT_USER
+          - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysqlsecret
-                key: root_user
-          - name: ROOT_PASS
-            valueFrom:
-              secretKeyRef:
-                name: mysqlsecret
-                key: root_pass
+                key: MYSQL_ROOT_PASSWORD
           - name: ADMIN_WP_USER
             valueFrom:
               secretKeyRef:
