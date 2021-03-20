@@ -15,6 +15,10 @@ spec:
     port: 443
     targetPort: 443
     protocol: TCP
+  - name: ssh
+    port: 22
+    targetPort: 22
+    protocol: TCP
   selector:
     app: nginx
 ---
@@ -35,3 +39,14 @@ spec:
       - name: nginx
         image: fortytwo/nginx
         imagePullPolicy: Never
+        env:
+          - name: SSH_USER
+            valueFrom:
+              secretKeyRef:
+                key: SSH_USER
+                name: sshsecret
+          - name: SSH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: SSH_PASSWORD
+                name: sshsecret

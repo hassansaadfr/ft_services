@@ -10,10 +10,10 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 
 eval $(minikube -p minikube docker-env)
 
-docker build srcs/mysql -t fortytwo/mysql
-docker build srcs/wordpress -t fortytwo/wordpress
-docker build srcs/phpmyadmin -t fortytwo/phpmyadmin
-docker build srcs/nginx -t fortytwo/nginx
+eval $(minikube -p minikube docker-env) && docker build srcs/mysql -t fortytwo/mysql
+eval $(minikube -p minikube docker-env) && docker build srcs/wordpress -t fortytwo/wordpress
+eval $(minikube -p minikube docker-env) && docker build srcs/phpmyadmin -t fortytwo/phpmyadmin
+eval $(minikube -p minikube docker-env) && docker build srcs/nginx -t fortytwo/nginx
 
 kubectl delete -f srcs
 

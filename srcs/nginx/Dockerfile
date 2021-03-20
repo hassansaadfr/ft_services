@@ -24,4 +24,16 @@ COPY srcs/proxy_params /etc/nginx/proxy_params
 
 COPY srcs/default /etc/nginx/conf.d/default.conf
 
+RUN apk add openssh
+
+RUN ssh-keygen -A
+
+ENV SSH_USER hsaadaou
+ENV SSH_PASSWORD hsaadaou
+
+RUN adduser -S $SSH_USER -s /bin/ash
+RUN addgroup $SSH_USER
+RUN addgroup $SSH_USER $SSH_USER
+RUN echo $SSH_USER:$SSH_PASSWORD | chpasswd
+
 CMD ./init.sh
