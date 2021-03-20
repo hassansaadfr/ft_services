@@ -21,6 +21,8 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manife
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
+sed -e 's/node_ip/'$node_ip'/g' srcs/metallb/metallb.yaml | kubectl create -f -
+
 eval $(minikube docker-env)
 
 docker build srcs/mysql -t fortytwo/mysql
@@ -31,7 +33,6 @@ docker build srcs/ftps -t fortytwo/ftps
 
 kubectl delete -f srcs
 
-sed -e 's/node_ip/'$node_ip'/g' srcs/metallb/metallb.yaml | kubectl create -f -
 kubectl create -f srcs/volumes.yaml
 kubectl create -f srcs/secrets.yaml
 kubectl create -f srcs/mysql.yaml
