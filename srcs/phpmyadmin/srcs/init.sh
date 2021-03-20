@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sed -i -e 's/node_ip/'$PMA_IP'/g' /usr/share/webapps/phpmyadmin/config.inc.php
+sed -i -e 's/node_ip/'$NODE_IP'/g' /usr/share/webapps/phpmyadmin/config.inc.php
 
 php-fpm7
 

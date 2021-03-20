@@ -1,9 +1,12 @@
 server {
-    listen          5050;
-    listen          [::]:5050 ;
+    listen          5050 ssl;
+    listen          [::]:5050 ssl;
     server_name     localhost;
 
-    root            /tmp/wordpress;
+	ssl_certificate /etc/ssl/localhost.pem;
+	ssl_certificate_key /etc/ssl/localhost.key;
+
+    root            /var/wordpress;
     index           index.html index.htm index.php;
 
     location / {

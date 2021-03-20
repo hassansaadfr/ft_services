@@ -30,7 +30,9 @@ spec:
         image: fortytwo/phpmyadmin
         imagePullPolicy: Never
         env:
-          - name: PMA_IP
-            value: IP_ADDR
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
         ports:
           - containerPort: 5000

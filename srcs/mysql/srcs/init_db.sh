@@ -3,15 +3,11 @@
 # -- Create Database
 echo "CREATE DATABASE wordpress CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
 
-# -- Create users
+# -- Create admin
 echo "CREATE USER '$ADMIN_WP_USER'@'%' IDENTIFIED BY '$ADMIN_WP_PASS';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
-echo "CREATE USER '$USER1_WP_USER'@'%' IDENTIFIED BY '$USER1_WP_PASS';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
-echo "CREATE USER '$USER2_WP_USER'@'%' IDENTIFIED BY '$USER2_WP_PASS';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
 
-# -- Create users
+# -- Add rights to admin
 echo "GRANT ALL on wordpress.* TO '$ADMIN_WP_USER'@'%' IDENTIFIED BY '$ADMIN_WP_PASS';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
-echo "GRANT ALL on wordpress.* TO '$USER1_WP_USER'@'%' IDENTIFIED BY '$USER1_WP_USER';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
-echo "GRANT ALL on wordpress.* TO '$USER2_WP_USER'@'%' IDENTIFIED BY '$USER2_WP_USER';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
 
 # -- Allow connection to root user from any location
 

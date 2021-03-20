@@ -21,6 +21,6 @@ server {
 
 	location /phpmyadmin/ {
 		include			proxy_params;
-		proxy_pass		https://phpmyadmin:5000/;
+		proxy_pass		http://phpmyadmin:5000/;
 	}
 }

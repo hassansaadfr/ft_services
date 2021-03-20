@@ -2,7 +2,7 @@ FROM alpine
 
 ENV VER="4.9.0.1"
 
-ENV PMA_IP=localhost
+ENV NODE_IP=localhost
 
 EXPOSE 5000
 

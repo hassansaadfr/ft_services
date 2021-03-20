@@ -2,12 +2,18 @@
 
 minikube delete
 
-minikube start
+OS=$(uname -s)
+if [ $OS = Darwin ]
+then
+  minikube start --driver=hyperkit
+else
+  minikube start
+fi
+
 minikube kubectl -- get pods -A
 
-minikube addons enable dashboard
 minikube addons enable metrics-server
-
+minikube addons enable dashboard
 
 node_ip=$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)
 
@@ -21,7 +27,7 @@ docker build srcs/mysql -t fortytwo/mysql
 docker build srcs/wordpress -t fortytwo/wordpress
 docker build srcs/phpmyadmin -t fortytwo/phpmyadmin
 docker build srcs/nginx -t fortytwo/nginx
-docker build srcs/nginx -t fortytwo/ftps
+docker build srcs/ftps -t fortytwo/ftps
 
 kubectl delete -f srcs
 
@@ -31,7 +37,7 @@ kubectl create -f srcs/secrets.yaml
 kubectl create -f srcs/mysql.yaml
 kubectl create -f srcs/nginx.yaml
 kubectl create -f srcs/wordpress.yaml
-sed -e 's/IP_ADDR/'$node_ip'/g' srcs/phpmyadmin.yaml | kubectl create -f -
+kubectl create -f srcs/phpmyadmin.yaml
 kubectl create -f srcs/ftps.yaml
 
 echo "cluster ip: "

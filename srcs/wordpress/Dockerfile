@@ -12,28 +12,27 @@ RUN chmod +x wp-cli.phar
 
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-RUN apk add wget
+RUN mkdir -p /var/wordpress && cd /var/wordpress && wp core download --locale=fr_FR
 
-RUN cd /tmp && mkdir wordpress && cd wordpress && wget https://wordpress.org/latest.tar.gz && tar xfz latest.tar.gz && mv wordpress/* ./ && rm -rf *.gz
-
-COPY srcs/wp-config.php /tmp/wordpress
-
-RUN apk add openrc
+COPY srcs/wp-config.php /var/wordpress
 
 RUN apk add nginx
 
 COPY srcs/default /etc/nginx/conf.d/default.conf
 
+RUN apk add openrc
+
 RUN openrc
 
 RUN touch /run/openrc/softlevel
 
-COPY srcs/init.sh .
+RUN apk add openssl
 
-RUN chmod +x init.sh
-
-RUN apk add openrc
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/ssl/localhost.pem -keyout /etc/ssl/localhost.key -subj "/C=FR/ST=Paris/L=Paris/O=Wordpress K8s FT/OU=Saadaoui Hassan/CN=localhost"
 
 EXPOSE 5050
+
+COPY srcs/init.sh /
+RUN chmod +x init.sh
 
 CMD ./init.sh
