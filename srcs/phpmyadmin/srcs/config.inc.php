@@ -10,5 +10,5 @@
 	/* Server parameters */
 	$cfg['Servers'][$i]['host'] = 'mysql';
 	$cfg['Servers'][$i]['compress'] = FALSE;
-	$cfg['PmaAbsoluteUri'] = 'https://minikubeip/phpmyadmin';
+	$cfg['PmaAbsoluteUri'] = 'https://node_ip/phpmyadmin';
 ?>

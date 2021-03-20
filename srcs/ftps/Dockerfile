@@ -1,15 +1,23 @@
 FROM alpine
 
-RUN apk add openssh-server
+ENV FTP_USER hsaadaou
+ENV FTP_PASSWORD hsaadaou
 
-COPY srcs/sshd_config /etc/ssh/sshd_config
+RUN apk update
 
-RUN addgroup sftp
+RUN apk add vsftpd
 
-RUN mkdir -p /home/user
-RUN adduser -s /bin/false -h /home/user -G sftp user -D
+COPY srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
-RUN chown root:root /home/user/
-RUN chmod -R 770 /home/user
+RUN mkdir -p /etc/ssl/private
 
-ENTRYPOINT [ "sh" ]
+RUN apk add openssl
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -subj "/C=FR/ST=Paris/L=Paris/O=FTP K8s FT/OU=Saadaoui Hassan/CN=localhost"
+
+COPY srcs/init.sh .
+
+RUN chmod +x init.sh
+
+RUN apk add openrc
+
+CMD ./init.sh

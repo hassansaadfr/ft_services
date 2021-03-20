@@ -28,4 +28,6 @@ COPY srcs/init.sh .
 
 RUN chmod +x init.sh
 
+RUN apk add openrc
+
 CMD ./init.sh

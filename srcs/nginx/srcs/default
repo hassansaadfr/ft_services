@@ -16,11 +16,11 @@ server {
 	ssl_certificate_key /etc/ssl/localhost.key;
 
 	location /wordpress {
-		return 307 http://$host:5050;
+		return 307 https://$host:5050;
 	}
 
 	location /phpmyadmin/ {
 		include			proxy_params;
-		proxy_pass		http://phpmyadmin:5000/;
+		proxy_pass		https://phpmyadmin:5000/;
 	}
 }

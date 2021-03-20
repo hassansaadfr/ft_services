@@ -1,7 +1,6 @@
 server {
     listen          5050;
-    listen          [::]:5050;
-
+    listen          [::]:5050 ;
     server_name     localhost;
 
     root            /tmp/wordpress;

@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ftps
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
+spec:
+  type: LoadBalancer
+  ports:
+  - name: ftp
+    port: 21
+    targetPort: 21
+    protocol: TCP
+  selector:
+    app: ftps
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps
+spec:
+  selector:
+    matchLabels:
+      app: ftps
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      containers:
+      - name: ftps
+        image: fortytwo/ftps
+        imagePullPolicy: Never
+        env:
+          - name: FTP_USER
+            valueFrom:
+              secretKeyRef:
+                key: FTP_USER
+                name: ftpssecret
+          - name: FTP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: FTP_PASSWORD
+                name: ftpssecret
