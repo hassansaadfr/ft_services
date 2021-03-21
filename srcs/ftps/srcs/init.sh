@@ -12,4 +12,7 @@ touch /run/openrc/softlevel
 
 rc-service vsftpd restart
 touch /var/log/vsftpd.log
+
+telegraf &
+
 tail -f /var/log/vsftpd.log

@@ -8,6 +8,10 @@ EXPOSE 5000
 
 RUN apk update
 
+RUN apk add --no-cache --upgrade bash
+
+RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-compat
+
 RUN apk add curl php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session composer
 
 RUN apk add wget openrc nginx

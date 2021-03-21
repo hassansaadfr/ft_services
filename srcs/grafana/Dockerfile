@@ -23,6 +23,11 @@ RUN cp /telegraf/usr/bin/telegraf /usr/bin/
 RUN rm -rf *.tar.gz* telegraf/
 
 COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
+
+COPY srcs/datasource.yaml /grafana-7.4.5/conf/provisioning/datasources/datasources.yaml
+COPY srcs/dashboards /grafana-7.4.5/conf/provisioning/dashboards/data
+COPY srcs/dashboard.yaml /grafana-7.4.5/conf/provisioning/dashboards/
+
 RUN chmod +x init.sh
 
 CMD ./init.sh

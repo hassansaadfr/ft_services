@@ -9,4 +9,6 @@ wp core install --allow-root --path=/var/wordpress/ --url=https://$NODE_IP:5050 
 wp user create --path=/var/wordpress/ $USER1_WP_USER $USER1_WP_USER@$USER1_WP_USER.com --role=author --user_pass=$USER1_WP_PASS
 wp user create --path=/var/wordpress/ $USER2_WP_USER $USER2_WP_USER@$USER2_WP_USER.com --role=author --user_pass=$USER2_WP_PASS
 
+telegraf &
+
 tail -f /var/log/nginx/*.log

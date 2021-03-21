@@ -5,6 +5,10 @@ ENV FTP_PASSWORD hsaadaou
 
 RUN apk update
 
+RUN apk add --no-cache --upgrade bash
+
+RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-compat
+
 RUN apk add vsftpd
 
 COPY srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf

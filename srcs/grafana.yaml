@@ -31,3 +31,10 @@ spec:
         imagePullPolicy: Never
         ports:
           - containerPort: 3000
+        volumeMounts:
+          - name: grafana-persistent-storage
+            mountPath: /grafana-7.4.5/data
+      volumes:
+        - name: grafana-persistent-storage
+          persistentVolumeClaim:
+            claimName: grafana-pv-claim

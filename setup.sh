@@ -2,9 +2,36 @@
 
 minikube delete
 
+check_brew()
+{
+  which -s brew
+  if [[ $? != 0 ]] ; then
+    # Install Homebrew
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+}
+
+check_hyperkit()
+{
+  brew list hyperkit || brew install hyperkit
+}
+
+check_minikube()
+{
+  which -s minikube
+  if [[ $? != 0 ]] ; then
+    # Install Homebrew
+    brew install minikube
+  fi
+}
+
 OS=$(uname -s)
+
+check_minikube
+
 if [ $OS = Darwin ]
 then
+  check_brew
   minikube start --driver=hyperkit
 else
   minikube start
@@ -12,8 +39,8 @@ fi
 
 minikube kubectl -- get pods -A
 
-minikube addons enable metrics-server
 minikube addons enable dashboard
+minikube addons enable metrics-server
 
 node_ip=$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)
 
@@ -33,8 +60,6 @@ docker build srcs/phpmyadmin -t fortytwo/phpmyadmin
 docker build srcs/nginx -t fortytwo/nginx
 docker build srcs/ftps -t fortytwo/ftps
 
-kubectl delete -f srcs
-
 kubectl create -f srcs/volumes.yaml
 kubectl create -f srcs/secrets.yaml
 kubectl create -f srcs/mysql.yaml
@@ -48,4 +73,5 @@ kubectl create -f srcs/ftps.yaml
 echo "Everything is up: "
 echo http://$node_ip
 
-minikube dashboard &
+echo "Kubernetes dashboard url:"
+minikube dashboard --url=true

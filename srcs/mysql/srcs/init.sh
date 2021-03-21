@@ -11,9 +11,6 @@ done
 
 ./init_db.sh
 
-# echo "CREATE USER 'wp'@'%' IDENTIFIED BY 'wp';" | mysql -u root --skip-password
-# echo "CREATE DATABASE wordpress CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root --skip-password
-# echo "GRANT ALL on wordpress.* TO 'wp'@'%' IDENTIFIED BY 'wp';" | mysql -u root --skip-password
-# echo "flush privileges;" | mysql -u root --skip-password
+telegraf &
 
 tail -F /tmp/mysql.log

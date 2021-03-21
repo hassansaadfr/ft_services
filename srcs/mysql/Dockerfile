@@ -2,6 +2,10 @@ FROM alpine
 
 RUN apk update
 
+RUN apk add --no-cache --upgrade bash
+
+RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-compat
+
 RUN apk add mariadb mariadb-common mariadb-client
 
 COPY srcs/init.sh .

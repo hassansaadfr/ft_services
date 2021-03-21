@@ -6,4 +6,6 @@ php-fpm7
 
 service nginx start
 
+telegraf &
+
 tail -f /var/log/nginx/*.log
