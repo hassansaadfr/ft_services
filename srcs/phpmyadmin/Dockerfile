@@ -1,8 +1,8 @@
 FROM alpine
 
-ENV VER="4.9.0.1"
+ENV VER "4.9.0.1"
 
-ENV NODE_IP=localhost
+ENV NODE_IP localhost
 
 EXPOSE 5000
 
@@ -29,5 +29,9 @@ COPY srcs/init.sh .
 RUN chmod +x init.sh
 
 RUN apk add openrc
+
+RUN apk add openssl
+
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/ssl/localhost.pem -keyout /etc/ssl/localhost.key -subj "/C=FR/ST=Paris/L=Paris/O=PMA K8s FT/OU=Saadaoui Hassan/CN=localhost"
 
 CMD ./init.sh
