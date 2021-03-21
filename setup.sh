@@ -26,6 +26,8 @@ sed -e 's/node_ip/'$node_ip'/g' srcs/metallb/metallb.yaml | kubectl create -f -
 eval $(minikube docker-env)
 
 docker build srcs/mysql -t fortytwo/mysql
+docker build srcs/influxdb -t fortytwo/influxdb
+docker build srcs/grafana -t fortytwo/grafana
 docker build srcs/wordpress -t fortytwo/wordpress
 docker build srcs/phpmyadmin -t fortytwo/phpmyadmin
 docker build srcs/nginx -t fortytwo/nginx
@@ -36,12 +38,14 @@ kubectl delete -f srcs
 kubectl create -f srcs/volumes.yaml
 kubectl create -f srcs/secrets.yaml
 kubectl create -f srcs/mysql.yaml
+kubectl create -f srcs/influxdb.yaml
+kubectl create -f srcs/grafana.yaml
 kubectl create -f srcs/nginx.yaml
 kubectl create -f srcs/wordpress.yaml
 kubectl create -f srcs/phpmyadmin.yaml
 kubectl create -f srcs/ftps.yaml
 
-echo "cluster ip: "
+echo "Everything is up: "
 echo http://$node_ip
 
 minikube dashboard &

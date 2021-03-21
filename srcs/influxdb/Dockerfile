@@ -2,21 +2,15 @@ FROM alpine
 
 RUN apk update
 
-RUN apk add mariadb mariadb-common mariadb-client
+RUN apk add openrc
+
+RUN apk add influxdb
+
+RUN openrc
+
+RUN touch /run/openrc/softlevel
 
 COPY srcs/init.sh .
-
-RUN chmod +x init.sh
-
-COPY srcs/init_db.sh init_db.sh
-
-RUN chmod +x init_db.sh
-
-ENV MYSQL_ROOT_PASSWORD=root
-
-ENV ADMIN_WP_USER ADMIN_WP_USER
-ENV USER1_WP_USER USER1_WP_USER
-ENV USER2_WP_USER USER2_WP_USER
 
 ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.18.0_linux_amd64.tar.gz telegraf.tar.gz
 
@@ -28,4 +22,6 @@ RUN rm -rf *.tar.gz* telegraf/
 
 COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
-CMD "./init.sh"
+RUN chmod +x init.sh
+
+CMD ./init.sh
