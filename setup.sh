@@ -7,6 +7,7 @@ check_brew()
   which -s brew
   if [[ $? != 0 ]] ; then
     # Install Homebrew
+    printf "\033[1;32mInstall brew\n\033[0m"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 }
@@ -21,57 +22,73 @@ check_minikube()
   which -s minikube
   if [[ $? != 0 ]] ; then
     # Install Homebrew
+    printf "\033[1;32mInstall minikube\n\033[0m"
     brew install minikube
   fi
 }
 
-OS=$(uname -s)
+build_and_deploy()
+{
+  printf "\033[1;32mBuild $1\n\033[0m"
+  docker build srcs/$1 -t fortytwo/$1
+  tput reset
+  printf "\033[1;32mDeploy $1\n\033[0m"
+  kubectl create -f srcs/$1.yaml
+}
 
-check_minikube
+deploy_metallb()
+{
+  printf "\033[1;32mDeploy Metallb\n\033[0m"
+  kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
+  kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
+  kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+  sed -e 's/node_ip/'$1'/g' srcs/metallb/metallb.yaml | kubectl create -f -
+}
 
-if [ $OS = Darwin ]
-then
-  check_brew
-  minikube start --driver=hyperkit
-else
-  minikube start
-fi
+run_minikube()
+{
+  OS=$(uname -s)
 
-minikube kubectl -- get pods -A
+  check_minikube
 
-minikube addons enable dashboard
-minikube addons enable metrics-server
+  if [ $OS = Darwin ]
+  then
+    check_brew
+    minikube start --driver=hyperkit
+  else
+    minikube start
+  fi
+
+  minikube kubectl -- get pods -A
+}
+
+run_minikube
 
 node_ip=$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)
 
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-
-sed -e 's/node_ip/'$node_ip'/g' srcs/metallb/metallb.yaml | kubectl create -f -
+deploy_metallb $node_ip
 
 eval $(minikube docker-env)
 
-docker build srcs/mysql -t fortytwo/mysql
-docker build srcs/influxdb -t fortytwo/influxdb
-docker build srcs/grafana -t fortytwo/grafana
-docker build srcs/wordpress -t fortytwo/wordpress
-docker build srcs/phpmyadmin -t fortytwo/phpmyadmin
-docker build srcs/nginx -t fortytwo/nginx
-docker build srcs/ftps -t fortytwo/ftps
-
 kubectl create -f srcs/volumes.yaml
 kubectl create -f srcs/secrets.yaml
-kubectl create -f srcs/mysql.yaml
-kubectl create -f srcs/influxdb.yaml
-kubectl create -f srcs/grafana.yaml
-kubectl create -f srcs/nginx.yaml
-kubectl create -f srcs/wordpress.yaml
-kubectl create -f srcs/phpmyadmin.yaml
-kubectl create -f srcs/ftps.yaml
 
-echo "Everything is up: "
+tput reset
+
+build_and_deploy "mysql"
+build_and_deploy "influxdb"
+build_and_deploy "grafana"
+build_and_deploy "nginx"
+build_and_deploy "wordpress"
+build_and_deploy "phpmyadmin"
+build_and_deploy "ftps"
+
+tput reset
+
+eval $(minikube docker-env -u)
+
+printf "\033[1;32mEverything is up :\n\033[0m"
 echo http://$node_ip
 
-echo "Kubernetes dashboard url:"
-minikube dashboard --url=true
+printf "\033[1;32mLaunching dashboard\n\033[0m"
+minikube dashboard &
