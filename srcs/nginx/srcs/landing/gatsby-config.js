@@ -1,8 +1,11 @@
+require("dotenv").config({
+  path: `.env`,
+})
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Starter - Stellar by HTML5 UP",
-    author: "Hunter Chang",
-    description: "A Gatsby.js Starter based on Stellar by HTML5 UP"
+    title: "Ft_services",
+    author: "Hsaadaou",
+    description: "Ft_services 42 project"
   },
   plugins: [
     'gatsby-plugin-react-helmet',

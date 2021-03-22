@@ -5,6 +5,7 @@
   "author": "Hunter Chang",
   "dependencies": {
     "gatsby": "^2.19.32",
+    "gatsby-plugin-env-variables": "^2.0.0",
     "gatsby-plugin-manifest": "^2.2.44",
     "gatsby-plugin-offline": "^3.0.37",
     "gatsby-plugin-react-helmet": "^3.1.23",
@@ -23,7 +24,8 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "serve": "gatsby serve",
+    "develop": "NODE_IP=127.0.0.1 gatsby develop",
     "format": "prettier --write '**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

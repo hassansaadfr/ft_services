@@ -41,32 +41,32 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: mysqlsecret
-                key: admin_wp_user
+                key: ADMIN_WP_USER
           - name: ADMIN_WP_PASS
             valueFrom:
               secretKeyRef:
                 name: mysqlsecret
-                key: admin_wp_pass
+                key: ADMIN_WP_PASS
           - name: USER1_WP_USER
             valueFrom:
               secretKeyRef:
                 name: mysqlsecret
-                key: user1_wp_user
+                key: USER1_WP_USER
           - name: USER1_WP_PASS
             valueFrom:
               secretKeyRef:
                 name: mysqlsecret
-                key: user1_wp_pass
+                key: USER1_WP_PASS
           - name: USER2_WP_USER
             valueFrom:
               secretKeyRef:
                 name: mysqlsecret
-                key: user2_wp_user
+                key: USER2_WP_USER
           - name: USER2_WP_PASS
             valueFrom:
               secretKeyRef:
                 name: mysqlsecret
-                key: user2_wp_pass
+                key: USER2_WP_PASS
         ports:
           - containerPort: 3306
             name: mysql

@@ -40,6 +40,10 @@ spec:
         image: fortytwo/nginx
         imagePullPolicy: Never
         env:
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
           - name: SSH_USER
             valueFrom:
               secretKeyRef:
@@ -50,3 +54,48 @@ spec:
               secretKeyRef:
                 key: SSH_PASSWORD
                 name: sshsecret
+          - name: FTP_USER
+            valueFrom:
+              secretKeyRef:
+                key: FTP_USER
+                name: ftpsecret
+          - name: FTP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: FTP_PASSWORD
+                name: ftpsecret
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_ROOT_PASSWORD
+                name: mysqlsecret
+          - name: ADMIN_WP_USER
+            valueFrom:
+              secretKeyRef:
+                key: ADMIN_WP_USER
+                name: mysqlsecret
+          - name: ADMIN_WP_PASS
+            valueFrom:
+              secretKeyRef:
+                key: ADMIN_WP_PASS
+                name: mysqlsecret
+          - name: USER1_WP_USER
+            valueFrom:
+              secretKeyRef:
+                key: USER1_WP_USER
+                name: mysqlsecret
+          - name: USER1_WP_PASS
+            valueFrom:
+              secretKeyRef:
+                key: USER1_WP_PASS
+                name: mysqlsecret
+          - name: USER2_WP_USER
+            valueFrom:
+              secretKeyRef:
+                key: USER2_WP_USER
+                name: mysqlsecret
+          - name: USER2_WP_PASS
+            valueFrom:
+              secretKeyRef:
+                key: USER2_WP_PASS
+                name: mysqlsecret
