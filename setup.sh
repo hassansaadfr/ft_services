@@ -88,7 +88,7 @@ tput reset
 eval $(minikube docker-env -u)
 
 printf "\033[1;32mEverything is up :\n\033[0m"
-echo http://$node_ip
+echo https://$node_ip
 
 printf "\033[1;32mLaunching dashboard\n\033[0m"
 minikube dashboard &

@@ -58,12 +58,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 key: FTP_USER
-                name: ftpsecret
+                name: ftpssecret
           - name: FTP_PASSWORD
             valueFrom:
               secretKeyRef:
                 key: FTP_PASSWORD
-                name: ftpsecret
+                name: ftpssecret
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:

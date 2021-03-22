@@ -14,6 +14,7 @@ server {
 
 	ssl_certificate /etc/ssl/localhost.pem;
 	ssl_certificate_key /etc/ssl/localhost.key;
+	root /landing/;
 
 	location /wordpress {
 		return 307 https://$host:5050;

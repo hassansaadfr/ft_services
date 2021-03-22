@@ -45,4 +45,10 @@ RUN rm -rf *.tar.gz* telegraf/
 
 COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
+COPY srcs/landing /landing
+
+COPY srcs/init_landing.sh .
+
+RUN chmod +x init_landing.sh
+
 CMD ./init.sh
