@@ -34,4 +34,6 @@ RUN rm -rf *.tar.gz* telegraf/
 
 COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
+EXPOSE 20 21
+
 CMD ./init.sh

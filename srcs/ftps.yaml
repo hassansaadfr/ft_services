@@ -11,6 +11,18 @@ spec:
     port: 21
     targetPort: 21
     protocol: TCP
+  - name: ftpactive
+    port: 20
+    targetPort: 20
+    protocol: TCP
+  - name: ftp30020
+    port: 30020
+    targetPort: 30020
+    protocol: TCP
+  - name: ftp30021
+    port: 30021
+    targetPort: 30021
+    protocol: TCP
   selector:
     app: ftps
 ---
@@ -27,11 +39,22 @@ spec:
       labels:
         app: ftps
     spec:
+      volumes:
+        - name: ftps-persistent-storage
+          persistentVolumeClaim:
+            claimName: ftps-pv-claim
       containers:
       - name: ftps
         image: fortytwo/ftps
         imagePullPolicy: Never
+        volumeMounts:
+          - name: ftps-persistent-storage
+            mountPath: /home
         env:
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
           - name: FTP_USER
             valueFrom:
               secretKeyRef:

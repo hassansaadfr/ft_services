@@ -19,7 +19,7 @@ check_hyperkit()
 
 check_minikube()
 {
-  which -s minikube
+  which minikube
   if [[ $? != 0 ]] ; then
     # Install Homebrew
     printf "\033[1;32mInstall minikube\n\033[0m"
@@ -64,6 +64,9 @@ run_minikube()
 
 run_minikube
 
+printf "\033[1;32mLaunching dashboard\n\033[0m"
+minikube dashboard &
+
 node_ip=$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)
 
 deploy_metallb $node_ip
@@ -78,10 +81,10 @@ tput reset
 build_and_deploy "mysql"
 build_and_deploy "influxdb"
 build_and_deploy "grafana"
-build_and_deploy "nginx"
-build_and_deploy "wordpress"
 build_and_deploy "phpmyadmin"
+build_and_deploy "wordpress"
 build_and_deploy "ftps"
+build_and_deploy "nginx"
 
 tput reset
 
@@ -90,5 +93,3 @@ eval $(minikube docker-env -u)
 printf "\033[1;32mEverything is up :\n\033[0m"
 echo https://$node_ip
 
-printf "\033[1;32mLaunching dashboard\n\033[0m"
-minikube dashboard &

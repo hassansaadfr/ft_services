@@ -35,10 +35,17 @@ spec:
       labels:
         app: nginx
     spec:
+      volumes:
+        - name: nginx-persistent-storage
+          persistentVolumeClaim:
+            claimName: nginx-pv-claim
       containers:
       - name: nginx
         image: fortytwo/nginx
         imagePullPolicy: Never
+        volumeMounts:
+          - name: nginx-persistent-storage
+            mountPath: /home/
         env:
           - name: NODE_IP
             valueFrom:
