@@ -43,6 +43,13 @@ spec:
       - name: nginx
         image: fortytwo/nginx
         imagePullPolicy: Never
+        livenessProbe:
+          periodSeconds: 3
+          initialDelaySeconds: 10
+          exec:
+            command:
+            - /bin/ash
+            - /livenessprobe.sh
         volumeMounts:
           - name: nginx-persistent-storage
             mountPath: /home/

@@ -47,4 +47,8 @@ RUN chmod +x init.sh
 
 EXPOSE 5050
 
+COPY srcs/livenessprobe.sh .
+
+RUN chmod +x livenessprobe.sh
+
 CMD ./init.sh

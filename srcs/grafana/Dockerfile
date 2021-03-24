@@ -30,4 +30,8 @@ COPY srcs/dashboard.yaml /grafana-7.4.5/conf/provisioning/dashboards/
 
 RUN chmod +x init.sh
 
+COPY srcs/livenessprobe.sh .
+
+RUN chmod +x livenessprobe.sh
+
 CMD ./init.sh

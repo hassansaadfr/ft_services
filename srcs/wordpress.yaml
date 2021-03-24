@@ -33,9 +33,16 @@ spec:
       - name: wordpress
         image: fortytwo/wordpress
         imagePullPolicy: Never
+        livenessProbe:
+          periodSeconds: 3
+          initialDelaySeconds: 15
+          exec:
+            command:
+            - /bin/ash
+            - /livenessprobe.sh
         volumeMounts:
           - name: wordpress-persistent-storage
-            mountPath: /tmp
+            mountPath: /var/wordpress
         env:
           - name: ADMIN_WP_USER
             valueFrom:

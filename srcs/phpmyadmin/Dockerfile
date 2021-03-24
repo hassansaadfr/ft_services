@@ -48,4 +48,8 @@ COPY srcs/init.sh .
 
 RUN chmod +x init.sh
 
+COPY srcs/livenessprobe.sh .
+
+RUN chmod +x livenessprobe.sh
+
 CMD ./init.sh

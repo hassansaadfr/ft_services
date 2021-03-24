@@ -51,4 +51,8 @@ COPY srcs/init_landing.sh .
 
 RUN chmod +x init_landing.sh
 
+COPY srcs/livenessprobe.sh .
+
+RUN chmod +x livenessprobe.sh
+
 CMD ./init.sh

@@ -36,4 +36,8 @@ COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 EXPOSE 20 21
 
+COPY srcs/livenessprobe.sh .
+
+RUN chmod +x livenessprobe.sh
+
 CMD ./init.sh

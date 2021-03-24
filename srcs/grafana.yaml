@@ -29,6 +29,13 @@ spec:
       - name: grafana
         image: fortytwo/grafana
         imagePullPolicy: Never
+        livenessProbe:
+          periodSeconds: 3
+          initialDelaySeconds: 10
+          exec:
+            command:
+            - /bin/ash
+            - /livenessprobe.sh
         ports:
           - containerPort: 3000
         volumeMounts:

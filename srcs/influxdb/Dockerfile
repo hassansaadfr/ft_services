@@ -28,4 +28,8 @@ COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 RUN chmod +x init.sh
 
+COPY srcs/livenessprobe.sh .
+
+RUN chmod +x livenessprobe.sh
+
 CMD ./init.sh
