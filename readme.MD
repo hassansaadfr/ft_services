@@ -1,6 +1,6 @@
 # ft_services
 
-# JE TIENS A REMERCIER [@nicodinh](https://github.com/nicodinh) DE M'AVOIR GRACIEUSEMENT AIDER A CONFIGURER PHPMYADMIN
+# JE TIENS A REMERCIER [@nicodinh](https://github.com/nicodinh) DE M'AVOIR GRACIEUSEMENT AIDÉ A CONFIGURER PHPMYADMIN
 
 
 ## *42*
