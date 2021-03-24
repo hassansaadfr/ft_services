@@ -1,11 +1,13 @@
 # ft_services
 
+# JE TIENS A REMERCIER [@nicodinh](https://github.com/nicodinh) DE M'AVOIR GRACIEUSEMENT AIDER A CONFIGURER PHPMYADMIN
+
 
 ## *42*
 
-- Valider c'est bien comprendre c'est mieux.
+- Valider c'est bien comprendre c'est mieux #RTFM .
 
-- Si tu clone lache au moins une petite ⭐.
+- Si tu clone lache au moins une petite ⭐ #FDP.
 
 ## Run the project
 
