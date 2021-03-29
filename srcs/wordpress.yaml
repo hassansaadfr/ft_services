@@ -25,10 +25,6 @@ spec:
       labels:
         app: wordpress
     spec:
-      volumes:
-        - name: wordpress-persistent-storage
-          persistentVolumeClaim:
-            claimName: wp-pv-claim
       containers:
       - name: wordpress
         image: fortytwo/wordpress
@@ -40,9 +36,6 @@ spec:
             command:
             - /bin/ash
             - /livenessprobe.sh
-        volumeMounts:
-          - name: wordpress-persistent-storage
-            mountPath: /var/wordpress
         env:
           - name: ADMIN_WP_USER
             valueFrom:

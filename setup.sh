@@ -30,7 +30,7 @@ check_minikube()
 build_and_deploy()
 {
   printf "\033[1;32mBuild $1\n\033[0m"
-  docker build srcs/$1 -t fortytwo/$1
+  docker build srcs/$1 -t fortytwo/$1 | grep Step | sed 's/Step/'$1' => Step/g'
   tput reset
   printf "\033[1;32mDeploy $1\n\033[0m"
   kubectl create -f srcs/$1.yaml
@@ -91,5 +91,5 @@ tput reset
 eval $(minikube docker-env -u)
 
 printf "\033[1;32mEverything is up :\n\033[0m"
-echo https://$node_ip
 
+echo https://$node_ip
