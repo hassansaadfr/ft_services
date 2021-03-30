@@ -8,7 +8,7 @@ RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/ma
 
 RUN apk update
 
-RUN apk add openrc
+RUN apk add openrc openssl
 
 ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.18.0_linux_amd64.tar.gz telegraf.tar.gz
 

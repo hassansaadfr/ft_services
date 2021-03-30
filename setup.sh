@@ -1,5 +1,7 @@
 #/bin/bash
 
+start_time=$(date)
+
 minikube delete
 
 check_brew()
@@ -100,3 +102,8 @@ printf "\033[1;32mAdmin dashboard token :\n\033[0m"
 kubectl get secret -n kubernetes-dashboard $(kubectl get serviceaccount admin-user -n kubernetes-dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
 
 printf "\033[1;32m\nCopy token and past it here https://$node_ip:8080\n\033[0m"
+
+end_time=$(date)
+
+printf "\033[1;32m\nStarted at: $start_time\n\033[0m"
+printf "\033[1;32m\nStarted at: $end_time\n\033[0m"

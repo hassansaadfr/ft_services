@@ -4,8 +4,6 @@ ENV SERVICE_NAME nginx
 
 RUN apk add nginx
 
-RUN apk add openssl
-
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/ssl/localhost.pem -keyout /etc/ssl/localhost.key -subj "/C=FR/ST=Paris/L=Paris/O=Nginx K8s FT/OU=Saadaoui Hassan/CN=localhost"
 
 EXPOSE 80 443
@@ -38,5 +36,7 @@ RUN chmod +x init_landing.sh
 COPY srcs/livenessprobe.sh .
 
 RUN chmod +x livenessprobe.sh
+
+RUN sed -e -i 's/SERVICE_NAME/'$SERVICE_NAME'/g' /etc/telegraf/telegraf.conf
 
 CMD ./init.sh

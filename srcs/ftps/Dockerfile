@@ -10,7 +10,6 @@ COPY srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 RUN mkdir -p /etc/ssl/private
 
-RUN apk add openssl
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -subj "/C=FR/ST=Paris/L=Paris/O=FTP K8s FT/OU=Saadaoui Hassan/CN=localhost"
 
 COPY srcs/init.sh .
@@ -22,5 +21,7 @@ EXPOSE 20 21
 COPY srcs/livenessprobe.sh .
 
 RUN chmod +x livenessprobe.sh
+
+RUN sed -e -i 's/SERVICE_NAME/'$SERVICE_NAME'/g' /etc/telegraf/telegraf.conf
 
 CMD ./init.sh

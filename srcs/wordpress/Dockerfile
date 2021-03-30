@@ -22,8 +22,6 @@ RUN openrc
 
 RUN touch /run/openrc/softlevel
 
-RUN apk add openssl
-
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/ssl/localhost.pem -keyout /etc/ssl/localhost.key -subj "/C=FR/ST=Paris/L=Paris/O=Wordpress K8s FT/OU=Saadaoui Hassan/CN=localhost"
 
 COPY srcs/init.sh /
@@ -34,5 +32,7 @@ EXPOSE 5050
 COPY srcs/livenessprobe.sh .
 
 RUN chmod +x livenessprobe.sh
+
+RUN sed -e -i 's/SERVICE_NAME/'$SERVICE_NAME'/g' /etc/telegraf/telegraf.conf
 
 CMD ./init.sh
