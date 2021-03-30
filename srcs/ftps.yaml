@@ -23,6 +23,10 @@ spec:
     port: 30021
     targetPort: 30021
     protocol: TCP
+  - name: ftp30022
+    port: 30022
+    targetPort: 30022
+    protocol: TCP
   selector:
     app: ftps
 ---
@@ -47,6 +51,12 @@ spec:
       - name: ftps
         image: hsaadaou/ftps
         imagePullPolicy: Never
+        ports:
+          - containerPort: 21
+          - containerPort: 20
+          - containerPort: 30020
+          - containerPort: 30021
+          - containerPort: 30022
         livenessProbe:
           periodSeconds: 3
           initialDelaySeconds: 10

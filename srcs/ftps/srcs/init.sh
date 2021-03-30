@@ -15,4 +15,6 @@ touch /var/log/vsftpd.log
 
 telegraf &
 
+sed  -i 's/NODE_IP/'$NODE_IP'/g' /etc/vsftpd/vsftpd.conf
+
 tail -f /var/log/vsftpd.log
