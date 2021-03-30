@@ -1,5 +1,7 @@
 #/bin/bash
 
+START=$(date +%s);
+
 start_time=$(date)
 
 minikube delete
@@ -107,3 +109,9 @@ end_time=$(date)
 
 printf "\033[1;32m\nStarted at: $start_time\n\033[0m"
 printf "\033[1;32m\nStarted at: $end_time\n\033[0m"
+
+END=$(date +%s);
+
+printf "\033[1;32m\nElapsed time: "
+echo $((END-START)) | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}'
+printf "\n\033[0m"
