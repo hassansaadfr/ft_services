@@ -45,7 +45,7 @@ spec:
             claimName: ftps-pv-claim
       containers:
       - name: ftps
-        image: fortytwo/ftps
+        image: hsaadaou/ftps
         imagePullPolicy: Never
         livenessProbe:
           periodSeconds: 3

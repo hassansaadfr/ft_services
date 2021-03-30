@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: phpmyadmin
-        image: fortytwo/phpmyadmin
+        image: hsaadaou/phpmyadmin
         imagePullPolicy: Never
         livenessProbe:
           periodSeconds: 3

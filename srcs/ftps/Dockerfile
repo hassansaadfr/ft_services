@@ -1,13 +1,8 @@
-FROM alpine
+FROM hsaadaou/alpine_base
 
+ENV SERVICE_NAME ftps
 ENV FTP_USER hsaadaou
 ENV FTP_PASSWORD hsaadaou
-
-RUN apk update
-
-RUN apk add --no-cache --upgrade bash
-
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-compat
 
 RUN apk add vsftpd
 
@@ -21,18 +16,6 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private
 COPY srcs/init.sh .
 
 RUN chmod +x init.sh
-
-RUN apk add openrc
-
-ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.18.0_linux_amd64.tar.gz telegraf.tar.gz
-
-RUN tar -C . -xzf telegraf.tar.gz
-RUN mv telegraf-1.18.0/ telegraf
-RUN chmod +x telegraf/usr/bin
-RUN cp /telegraf/usr/bin/telegraf /usr/bin/
-RUN rm -rf *.tar.gz* telegraf/
-
-COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 EXPOSE 20 21
 

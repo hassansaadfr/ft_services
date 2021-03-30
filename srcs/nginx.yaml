@@ -41,7 +41,7 @@ spec:
             claimName: nginx-pv-claim
       containers:
       - name: nginx
-        image: fortytwo/nginx
+        image: hsaadaou/nginx
         imagePullPolicy: Never
         livenessProbe:
           periodSeconds: 3

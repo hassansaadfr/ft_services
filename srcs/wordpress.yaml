@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: wordpress
-        image: fortytwo/wordpress
+        image: hsaadaou/wordpress
         imagePullPolicy: Never
         livenessProbe:
           periodSeconds: 3

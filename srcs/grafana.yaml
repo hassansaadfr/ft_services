@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: fortytwo/grafana
+        image: hsaadaou/grafana
         imagePullPolicy: Never
         livenessProbe:
           periodSeconds: 3

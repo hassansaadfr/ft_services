@@ -30,7 +30,7 @@ check_minikube()
 build_and_deploy()
 {
   printf "\033[1;32mBuild $1\n\033[0m"
-  docker build srcs/$1 -t fortytwo/$1 | grep Step | sed 's/Step/'$1' => Step/g'
+  docker build srcs/$1 -t hsaadaou/$1 | grep Step
   tput reset
   printf "\033[1;32mDeploy $1\n\033[0m"
   kubectl create -f srcs/$1.yaml
@@ -64,19 +64,20 @@ run_minikube()
 
 run_minikube
 
-printf "\033[1;32mLaunching dashboard\n\033[0m"
-minikube dashboard &
-
 node_ip=$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)
 
 deploy_metallb $node_ip
 
 eval $(minikube docker-env)
 
+kubectl create -f srcs/dashboard.yaml
+
 kubectl create -f srcs/volumes.yaml
 kubectl create -f srcs/secrets.yaml
 
 tput reset
+
+docker build srcs/alpine_base -t hsaadaou/alpine_base | grep Step
 
 build_and_deploy "mysql"
 build_and_deploy "influxdb"
@@ -93,3 +94,9 @@ eval $(minikube docker-env -u)
 printf "\033[1;32mEverything is up :\n\033[0m"
 
 echo https://$node_ip
+
+printf "\033[1;32mAdmin dashboard token :\n\033[0m"
+
+kubectl get secret -n kubernetes-dashboard $(kubectl get serviceaccount admin-user -n kubernetes-dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+
+printf "\033[1;32m\nCopy token and past it here https://$node_ip:8080\n\033[0m"

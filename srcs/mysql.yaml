@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: fortytwo/mysql
+        image: hsaadaou/mysql
         imagePullPolicy: Never
         livenessProbe:
           periodSeconds: 3
