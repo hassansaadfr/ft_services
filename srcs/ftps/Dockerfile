@@ -22,6 +22,6 @@ COPY srcs/livenessprobe.sh .
 
 RUN chmod +x livenessprobe.sh
 
-RUN sed -e -i 's/SERVICE_NAME/'$SERVICE_NAME'/g' /etc/telegraf/telegraf.conf
+RUN sed  -i 's/SERVICE_NAME/'$SERVICE_NAME'/g' /etc/telegraf/telegraf.conf
 
 CMD ./init.sh
