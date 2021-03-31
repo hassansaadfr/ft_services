@@ -9,5 +9,5 @@ fi
 # check if grafana is running
 if ! pgrep "grafana-server" > /dev/null
 then
-        exit 1
+    exit 1
 fi

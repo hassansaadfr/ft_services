@@ -9,5 +9,5 @@ fi
 # check if influxd is running
 if ! pgrep "influxd" > /dev/null
 then
-        exit 1
+    exit 1
 fi

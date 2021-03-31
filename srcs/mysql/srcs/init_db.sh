@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # -- Create Database
-echo "CREATE DATABASE wordpress CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
+echo "CREATE DATABASE $WP_DB_NAME CHARACTER SET utf8 COLLATE utf8_bin;" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
 
 # -- Create admin
 echo "CREATE USER '$ADMIN_WP_USER'@'%' IDENTIFIED BY '$ADMIN_WP_PASS';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
 
 # -- Add rights to admin
-echo "GRANT ALL on wordpress.* TO '$ADMIN_WP_USER'@'%' IDENTIFIED BY '$ADMIN_WP_PASS';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
+echo "GRANT ALL on $WP_DB_NAME.* TO '$ADMIN_WP_USER'@'%' IDENTIFIED BY '$ADMIN_WP_PASS';" | mysql -u root -p'$MYSQL_ROOT_PASSWORD'
 
 # -- Allow connection to root user from any location
 

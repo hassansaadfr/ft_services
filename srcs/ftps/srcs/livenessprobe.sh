@@ -9,5 +9,5 @@ fi
 # check if vsftpd is running
 if ! pgrep "vsftpd" > /dev/null
 then
-        exit 1
+    exit 1
 fi

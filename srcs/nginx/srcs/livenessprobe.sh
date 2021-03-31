@@ -3,7 +3,7 @@
 # check if telegraf is running
 if ! pgrep -x "telegraf" > /dev/null
 then
-    exit 1
+        exit 1
 fi
 
 # check if nginx is running
