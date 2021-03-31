@@ -31,12 +31,17 @@ check_minikube()
   fi
 }
 
+build_image()
+{
+  docker build srcs/$1 -t hsaadaou/$1 || build_image $1
+}
+
 build_and_deploy()
 {
   printf "\033[1;34m⌛️  Current Step $3\n\033[0m"
   printf "\033[1;32m$2  Build \e[4m$1\n\033[0m"
-  docker build srcs/$1 -t hsaadaou/$1 | grep Step
-  tput reset
+  build_image $1
+  clear
   printf "\033[1;32m$2  Deploy \e[4m$1\n\033[0m"
   kubectl create -f srcs/$1.yaml
   kubectl get pods
@@ -76,17 +81,17 @@ deploy_metallb $node_ip
 
 eval $(minikube docker-env)
 
-tput reset
+clear
 
 kubectl create -f srcs/dashboard.yaml >> /dev/null
 
 kubectl create -f srcs/volumes.yaml >> /dev/null
 kubectl create -f srcs/secrets.yaml >> /dev/null
 
-printf "\033[1;32m🏗  Build \e[4mAlpine base image\n\033[0m"
-docker build srcs/alpine_base -t hsaadaou/alpine_base | grep Step
+printf "🏗\033[1;32m   Build \e[4mAlpine base image\n\033[0m"
+build_image alpine_base
 
-tput reset
+clear
 
 build_and_deploy "mysql" "🧠" "1/7"
 build_and_deploy "influxdb" "💾" "2/7"
@@ -96,7 +101,7 @@ build_and_deploy "wordpress" "🛒" "5/7"
 build_and_deploy "ftps" "🗂" "6/7"
 build_and_deploy "nginx" "🚦" "7/7"
 
-tput reset
+clear
 
 eval $(minikube docker-env -u)
 
